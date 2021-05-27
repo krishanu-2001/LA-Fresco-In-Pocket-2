@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/krishanu-2001/estore-heroku.svg?branch=master)](https://travis-ci.org/krishanu-2001/estore-heroku)  
 ### See active repository for latest changes - [estore-heroku](https://github.com/krishanu-2001/estore-heroku)   
-<br /><br /><br />
+<br /><br />
 # La-Fresco MERN Stack Web-App
 ![lafresco-image](/upload_photos/lafrescophoto2.0.png)  
 ## Set Up:  
