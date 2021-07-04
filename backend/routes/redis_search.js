@@ -183,12 +183,8 @@ class trie {
 // console.log(oaktree3517.autocomplete("bab"));
 
 const setTrieResponse = (itemname, stringArray) => {
-  let autocomplete = "<table><tr>";
-  stringArray.forEach((str) => {
-    autocomplete += `<td>${str}</td>`;
-  });
-  autocomplete += "</tr></table>";
-  return autocomplete;
+  // const response = {data: stringArray};
+  return stringArray;
 };
 
 const fetchItems = async (req, res, next) => {
@@ -222,7 +218,7 @@ const fetchItems = async (req, res, next) => {
     multi.exec(function (errors, results) {});
   }
 
-  res.send(setTrieResponse(itemname, resData));
+  res.json(setTrieResponse(itemname, resData));
 };
 
 const trieCache = (req, res, next) => {
@@ -248,6 +244,10 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/repos/:username").get(cache, getGitGud);
+
+router.route("/byname/").get((req, res) => {
+  res.send([]);
+});;
 
 router.route("/byname/:itemname").get(trieCache, fetchItems);
 
