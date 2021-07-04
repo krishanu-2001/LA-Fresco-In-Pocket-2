@@ -98,7 +98,9 @@ function Nav() {
       searchMeOpen([]);
     }
     const fetchData = async (query) => {
-      const res = await Axios.get(`http://localhost:5000/search/byname/${query}`);
+      const res = await Axios.get(
+        `http://localhost:5000/search/byname/${query}`
+      );
       if (res.status === 200) searchMeOpen(res.data);
       else searchMeOpen([]);
     };
@@ -106,16 +108,8 @@ function Nav() {
     fetchData(key);
   };
 
-  function sortFunction(a, b) {
-    if (a[1] === b[1]) {
-      return 0;
-    } else {
-      return a[1] > b[1] ? -1 : 1;
-    }
-  }
   /* Handles printing of searched box */
   const searchMeOpen = (datalist) => {
-    console.log(datalist);
     var sQuery = [];
     if (datalist.length === 0) {
       setSMB(sQuery);
@@ -180,7 +174,7 @@ function Nav() {
           <div className="line"></div>
           <div className="line"></div>
         </div>
-        <img onClick={gotoHome} src="/logo.png" className="logo" />
+        <img onClick={gotoHome} src="/logo.png" alt="logo" className="logo" />
         <div onClick={gotoHome} className={shopNameClass}>
           La
           <br />
@@ -198,18 +192,25 @@ function Nav() {
             <img
               onClick={onclickNavSearch}
               src="https://img.icons8.com/pastel-glyph/64/000000/search--v2.png"
+              alt="Search Icon"
               className="searchImg"
             />
           </div>
           <div className="navSearchMeBox">{navSearchMeBox}</div>
 
           <div className="navInfo">
-            <img src="https://image.flaticon.com/icons/svg/1216/1216895.svg" />
+            <img
+              src="https://image.flaticon.com/icons/svg/1216/1216895.svg"
+              alt="IITI"
+            />
             <a href="www.iiti.ac.in" className="loc">
               IIT INDORE,MP(452020)
             </a>
             <p> </p>
-            <img src="https://image.flaticon.com/icons/svg/597/597177.svg" />
+            <img
+              src="https://image.flaticon.com/icons/svg/597/597177.svg"
+              alt="Box"
+            />
             <span>07324 306 717</span>
           </div>
         </div>
@@ -231,6 +232,7 @@ function Nav() {
             <Link to="/basket">
               <img
                 src="https://image.flaticon.com/icons/svg/126/126083.svg"
+                alt="basket"
                 className="cartLogo"
               />
               Cart
@@ -251,6 +253,7 @@ function Nav() {
           onClick={onclickNavSearchClose}
           className="close-nav-search-op"
           src="https://img.icons8.com/emoji/48/000000/cross-mark-emoji.png"
+          alt="smile"
         />
         <input
           type="text"
@@ -262,6 +265,7 @@ function Nav() {
         <img
           className="search-nav-search-op"
           src="https://img.icons8.com/pastel-glyph/64/000000/search--v2.png"
+          alt="searchop"
         />
       </div>
     </>
