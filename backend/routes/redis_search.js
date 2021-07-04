@@ -84,7 +84,6 @@ class trie {
 
   addWord(str) {
     const addWordHelper = (root, str) => {
-      console.log(str);
       let i = 0;
       let curNode = root;
       while (i < str.length) {
@@ -211,8 +210,17 @@ const fetchItems = async (req, res, next) => {
 
   const resData = oaktree3517.autocomplete(itemname);
 
-  if(resData)
-    redis_client.setex(itemname, 3600, resData[0]);
+  if (resData) {
+    var multi = redis_client.multi();
+
+    for (var i = 0; i < resData.length; i++) {
+      multi.rpush(itemname, resData[i]);
+    }
+
+    multi.EXPIRE(itemname, 120);
+
+    multi.exec(function (errors, results) {});
+  }
 
   res.send(setTrieResponse(itemname, resData));
 };
@@ -220,13 +228,15 @@ const fetchItems = async (req, res, next) => {
 const trieCache = (req, res, next) => {
   const { itemname } = req.params;
 
-  redis_client.get(itemname, (err, data) => {
+  redis_client.lrange(itemname, 0, 10, (err, data) => {
     if (err) throw err;
 
-    if (data !== null) {
-      res.send(setTrieResponse(itemname, [data]));
+    if (data !== null && data.length !== 0) {
+      console.log("invoking cache");
+      console.log(data);
+      res.send(setTrieResponse(itemname, data));
     } else {
-      console.log("fetching data...");
+      console.log("fetching data from api...");
       next();
     }
   });
